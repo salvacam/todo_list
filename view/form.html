@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="page-header">
+		<h1>Todo List, <small>with AngularJS</small></h1>
+	</div>			
+    <div class="alert alert-warning" ng-show="expenseForm.$dirty && expenseForm.$invalid">
+      Please enter valid values in all required fields
+    </div>
+	<form name="formulario">
+		<div class="form-group">
+			<input id="foco" type="text" class="form-control input-lg" placeholder="Add New" ng-model="nuevo.texto" required >
+		</div>
+		<div class="form-group">
+			<button type="button" class="btn btn-success btn-lg btn-block" ng-click="formulario.$valid && save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
+		</div>
+		<div class="form-group">
+			<a href="#/" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+		</div>
+	</form>		
+
+	<script>
+
+	</script>	
+</div>

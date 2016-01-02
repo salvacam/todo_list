@@ -1,0 +1,18 @@
+<div class="col-xs-12 text-center list-group-item">
+	<button class="btn btn-link btn-lg pull-left" ng-click="toggle(item.id)" >		
+		<span ng-show="{{item.estado}} == 0" class="glyphicon glyphicon-unchecked">
+		</span>
+		<span ng-show="{{item.estado}} == 1" class="glyphicon glyphicon-check">
+		</span>
+	</button>
+	
+	<span ng-show="{{item.estado}} == 0" class="nombre" >{{item.texto}}</span>
+	<span ng-show="{{item.estado}} == 1" class="nombre subrayado">{{item.texto}}</span>
+
+	<a href="#/delete/{{item.id}}" class="btn btn-lg pull-right">
+		<span class="glyphicon glyphicon-trash"></span>
+	</a>     
+	<a href="#/form/edit/{{item.id}}" class="btn btn-lg pull-right">
+		<span class="glyphicon glyphicon-pencil"></span>
+	</a>
+</div>	

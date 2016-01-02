@@ -1,0 +1,22 @@
+.glyphicon.fa-lg{
+  font-size: 20px;
+}
+.nombre {
+  font-size: 25px;
+}
+.nombre.subrayado {
+	text-decoration: line-through;
+	color: grey;
+}
+input.ng-invalid {
+	border: rgba(215, 44, 44, 0.6) solid 1px;
+}
+body, .jumbotron {
+  background-color: #C8EFE8;
+}
+
+@media (max-width: 360px) {
+	body {
+		width: 360px;
+	}
+}
