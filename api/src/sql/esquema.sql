@@ -4,7 +4,7 @@ flush privileges;
 
 use todo_list;
 
-CREATE TABLE IF NOT EXISTS task (
+CREATE TABLE IF NOT EXISTS todo_task (
     id int(11) NOT NULL primary key auto_increment,
     texto varchar(100) NOT NULL,
     estado int(11) NOT NULL DEFAULT 0

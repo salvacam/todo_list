@@ -12,7 +12,13 @@ Nanite::get('/', function() {
 
 Nanite::get('/delete/([a-zA-Z0-9]+)', function($id) {
 	header("Content-Type: application/json");
-    echo borrar($id);
+	if ($id == 'All') {
+		echo borrarAll();
+	} else if ($id == 'Active' || $id == 'Completed') {
+		echo borrarEstado($id);
+	} else {
+		echo borrar($id);
+	}
 });
 
 Nanite::post('/new', function() {

@@ -15,7 +15,8 @@ ORM::configure('username', $user);
 ORM::configure('password', $pass);  
 
 function listar() {
-	$lista = ORM::for_table(TABLA)->find_many();	
+	
+	$lista = ORM::for_table(TABLA)->find_many();
 	$salida = [];
 	foreach ($lista as $task) {
 	    $id = $task->id;
@@ -30,59 +31,58 @@ function listar() {
 	return json_encode($salida);
 }
 
+
+function borrarAll() {
+	try {
+		$lista = ORM::for_table(TABLA)
+		->find_many();
+		foreach ($lista as $task) {
+			$task->delete();	
+		}		    	
+
+		$salida = listar();
+		return json_encode($salida);
+	} catch (Exception $e) {		
+		return json_encode(0);
+	}	
+}
+
+
+function borrarEstado($remove) {	
+	if ( $remove == 'Active' || $remove == 'Completed') {	
+		if ( $remove == 'Active' ) {
+			$estado = 0;
+		} else if ($remove == 'Completed') {
+			$estado = 1;
+		}
+		try {
+			$lista = ORM::for_table(TABLA)
+		    ->where('estado', $estado)
+		    ->find_many();		    
+		    foreach ($lista as $task) {
+		    	$task->delete();	
+			}			
+
+			$salida = listar();
+			return json_encode($salida);
+		} catch (Exception $e) {		
+			return json_encode(0);
+		}
+	}
+}
+
 function borrar($remove) {
-	$salida = 0;
-	if ( $remove == 'All' ) {
-		try {
-			$lista = ORM::for_table(TABLA)
-		    ->find_many();
-		    foreach ($lista as $task) {
-		    	$task->delete();	
-			}		    
-			//$salida = 1;		
+	try {
+		ORM::for_table(TABLA)
+		->where('id', $remove)
+		->find_one()
+		->delete();				
 
-			$salida = listar();
-		} catch (Exception $e) {		
-		}					
-	} else if ( $remove == 'Active' ) {
-		try {
-			$lista = ORM::for_table(TABLA)
-		    ->where('estado', 0)
-		    ->find_many();		    
-		    foreach ($lista as $task) {
-		    	$task->delete();	
-			}	
-			//$salida = 1;		
-
-			$salida = listar();
-		} catch (Exception $e) {		
-		}
-	} else if ( $remove == 'Completed' ) {
-		try {
-			$lista = ORM::for_table(TABLA)
-		    ->where('estado', 1)
-		    ->find_many();		    
-		    foreach ($lista as $task) {
-		    	$task->delete();	
-			}	
-			//$salida = 1;		
-
-			$salida = listar();
-		} catch (Exception $e) {		
-		}
-	} else {
-		try {
-			$task = ORM::for_table(TABLA)
-		    ->where('id', $remove)
-		    ->find_one()
-		    ->delete();
-			//$salida = 1;		
-
-			$salida = listar();
-		} catch (Exception $e) {		
-		}	
-	}  	
-	return json_encode($salida);
+		$salida = listar();
+		return json_encode($salida);
+	} catch (Exception $e) {	
+		return json_encode(0);
+	}	
 }
 
 function crear($texto) {
@@ -101,10 +101,10 @@ function crear($texto) {
 	return $salida;
 }
 
-function modificar($id, $texto, $estado) {
+function modificar($identificador, $texto, $estado) {
 	$salida = 0;
 	try {
-		$task = ORM::for_table(TABLA)->where('id', $id)->find_one();
+		$task = ORM::for_table(TABLA)->where('id', $identificador)->find_one();
 		$task->texto = $texto;
 		$task->estado = $estado;
 		$task->save();
