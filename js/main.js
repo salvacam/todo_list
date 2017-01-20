@@ -1,4 +1,5 @@
 var app = angular.module('todo-list', ['ngRoute', 'ngResource']);
+var apiHTML = 'http://salvacam.net78.net/todo_list'
 
 app.factory('list', function($http) { 
 	var service = {};
@@ -20,7 +21,7 @@ app.factory('list', function($http) {
 	                	texto: entry.texto,
 	                	estado: entry.estado
 	            	});
-					$http.post('api/update/' + entry.id, datos).success(function(data, status) {
+					$http.post(apiHTML + '/update/' + entry.id, datos).success(function(data, status) {
 		    		console.log(data);
 		            if ( data != 0 ) {
 		            	service.entries = data;
@@ -32,7 +33,7 @@ app.factory('list', function($http) {
 			var datos = JSON.stringify({
 	        	texto: entry.texto
 	        });
-	        $http.post('api/new', datos).success(function(data, status) {
+	        $http.post(apiHTML + '/new', datos).success(function(data, status) {
 	        	console.log(data);
 	        	if ( data != 0 ) {
 	        		service.entries = data;
@@ -43,7 +44,7 @@ app.factory('list', function($http) {
 
 	service.delete = function(id) {
 		if ( id == 'All' || id == 'Active' || id == 'Completed') {
-			$http.get('api/delete/'+id).	
+			$http.get(apiHTML + '/delete/'+id).	
 			success(function(data){
 				console.log(data);
 				console.log(JSON.parse(data));
@@ -57,8 +58,8 @@ app.factory('list', function($http) {
 				alert('error all!');
 			});
 		} else {			
-			console.log('api/delete/'+id);
-			$http.get('api/delete/'+id).	
+			console.log(apiHTML + '/delete/'+id);
+			$http.get(apiHTML + '/delete/'+id).	
 			success(function(data){
 				//service.get();			
 				console.log(JSON.parse(data));
@@ -87,7 +88,7 @@ app.factory('list', function($http) {
                 estado: nuevo_estado
             });
 
-    	$http.post('api/update/' + id, datos).success(function(data, status) {
+    	$http.post(apiHTML + '/update/' + id, datos).success(function(data, status) {
     		console.log(data);
             if ( data != 0 ) {
             	service.entries = data;
