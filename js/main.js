@@ -98,7 +98,7 @@ app.factory('list', function($http) {
 
 	service.entries = [];
 
-	$http.get('./api/index.php').	
+	$http.get(apiHTML + '/api/index.php').	
 		success(function(data){
 			console.log(data);
 			service.entries = data;      
