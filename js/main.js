@@ -1,5 +1,5 @@
 var app = angular.module('todo-list', ['ngRoute', 'ngResource']);
-var apiHTML = 'https://salvacam.net78.net/todo_list/api'
+var apiHTML = 'http://salvacam.net78.net/todo_list/api'
 
 app.factory('list', function($http) { 
 	var service = {};
