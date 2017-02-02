@@ -1,5 +1,5 @@
 var app = angular.module('todo-list', ['ngRoute', 'ngResource']);
-var apiHTML = 'https://featherbrained-exec.000webhostapp.com/todo_list/api'
+var apiHTML = 'https://featherbrained-exec.000webhostapp.com/todo_list/api/index.php'
 
 app.factory('list', function($http) { 
 	var service = {};
@@ -98,7 +98,7 @@ app.factory('list', function($http) {
 
 	service.entries = [];
 
-	$http.get(apiHTML + '/index.php').	
+	$http.get(apiHTML). // + '/index.php').	
 		success(function(data){
 			console.log(data);
 			service.entries = data;      
